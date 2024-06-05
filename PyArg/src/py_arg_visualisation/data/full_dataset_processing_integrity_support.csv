@@ -1,0 +1,2 @@
+_unit_id,pair_id,relation_gold,relation_gold_reason,sentence_1,sentence_2,speaker_1,speaker_2,topic
+3090707343,n010777b07p7980,Support,"This is a support relation. Trump claims that ""they cheat"" because ""they found ballots in a wastepaper basket [...]"".",They cheat.,"Hey, they found ballots in a wastepaper basket three days ago, and they all had the name military ballots.",Donald Trump,Donald Trump,Integrity

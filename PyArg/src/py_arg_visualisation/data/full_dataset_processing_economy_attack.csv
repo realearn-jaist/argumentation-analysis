@@ -1,0 +1,2 @@
+_unit_id,pair_id,relation_gold,relation_gold_reason,sentence_1,sentence_2,speaker_1,speaker_2,topic
+3089763981,n000965b07p6468,Attack,"This is an attack relation. Trump is claiming he thinks his son [Biden's] did something wrong (according to the previous sentences). However, Biden attacks by saying his position has been discredited.",I think he did.,His position has been totally thoroughly discredited-,Donald Trump,Joe Biden,Economy

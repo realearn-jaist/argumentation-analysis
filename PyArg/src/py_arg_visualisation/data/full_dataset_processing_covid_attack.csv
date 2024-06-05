@@ -1,0 +1,3 @@
+_unit_id,pair_id,relation_gold,relation_gold_reason,sentence_1,sentence_2,speaker_1,speaker_2,topic
+3085729615,n000414b07p1214,Attack,"This is an attack relation. Biden claims that he knows how to do the job of president, however Trump argues that he didn't do a very good job with the swine flu, while he was vice-president.",I know how to get the job done.,"H1-N1, you were a disaster.",Joe Biden,Donald Trump,COVID
+3091018787,n020217b07p1617,Attack,"This is an attack relation. Trump says that Biden ""certainly did [say he was racist]"", but Biden argues that he was referring to ""a different context"".",You certainly did.,I talked about his xenophobia in a different context.,Donald Trump,Joe Biden,COVID

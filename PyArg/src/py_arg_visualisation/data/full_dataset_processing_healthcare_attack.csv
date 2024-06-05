@@ -1,0 +1,2 @@
+_unit_id,pair_id,relation_gold,relation_gold_reason,sentence_1,sentence_2,speaker_1,speaker_2,topic
+3090847009,n000286b07p8588,Attack,"This is an attack relation. Trump has ""been promising a healthcare plan"", but he actually ""doesn't have a plan"". The first claim is attacked by the second sentence. Please, check the instructions if this is unclear.",He’s been promising a healthcare plan since he got elected.,He doesn’t have a plan.,Joe Biden,Joe Biden,Healthcare

@@ -1,0 +1,2 @@
+_unit_id,pair_id,relation_gold,relation_gold_reason,sentence_1,sentence_2,speaker_1,speaker_2,topic
+3088857892,n010697b07p9803,Attack,"This is an attack relation. Trump claims that the ballots are being sold, but Biden says there's no evidence of that.",They’re being sold.,There is no evidence of that-,Donald Trump,Joe Biden,Integrity
