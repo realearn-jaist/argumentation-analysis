@@ -270,7 +270,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$A$({argument_5},{argument_6})')
                 
             if 'support' in checkbox_values:
                 # Construire le chemin du fichier CSV de manière dynamique
@@ -294,7 +294,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
             abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
@@ -328,7 +328,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$A$({argument_5},{argument_6})')
                 
             if 'support' in checkbox_values:
                 # Construire le chemin du fichier CSV de manière dynamique
@@ -352,7 +352,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
             abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
@@ -386,7 +386,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$A$({argument_5},{argument_6})')
                 
             if 'support' in checkbox_values:
                 # Construire le chemin du fichier CSV de manière dynamique
@@ -410,7 +410,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
             abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
@@ -444,7 +444,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$A$({argument_5},{argument_6})')
                 
             if 'support' in checkbox_values:
                 # Construire le chemin du fichier CSV de manière dynamique
@@ -468,7 +468,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
             abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
@@ -502,7 +502,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$A$({argument_5},{argument_6})')
                 
             if 'support' in checkbox_values:
                 # Construire le chemin du fichier CSV de manière dynamique
@@ -526,7 +526,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
             abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
@@ -560,7 +560,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$A$({argument_5},{argument_6})')
                 
             if 'support' in checkbox_values:
                 # Construire le chemin du fichier CSV de manière dynamique
@@ -584,7 +584,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
             abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
@@ -618,7 +618,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$A$({argument_5},{argument_6})')
                 
             if 'support' in checkbox_values:
                 # Construire le chemin du fichier CSV de manière dynamique
@@ -642,7 +642,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
             abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
@@ -676,7 +676,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$A$({argument_5},{argument_6})')
                 
             if 'support' in checkbox_values:
                 # Construire le chemin du fichier CSV de manière dynamique
@@ -700,7 +700,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
             abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
@@ -734,7 +734,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$A$({argument_5},{argument_6})')
                 
             if 'support' in checkbox_values:
                 # Construire le chemin du fichier CSV de manière dynamique
@@ -758,7 +758,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
             abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
@@ -792,7 +792,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$A$({argument_5},{argument_6})')
                 
             if 'support' in checkbox_values:
                 # Construire le chemin du fichier CSV de manière dynamique
@@ -816,7 +816,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
             abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
@@ -850,7 +850,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$A$({argument_5},{argument_6})')
                 
             if 'support' in checkbox_values:
                 # Construire le chemin du fichier CSV de manière dynamique
@@ -874,7 +874,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                         l.append(argument_6)
 
                     # Ajouter la relation entre les éléments à la deuxième liste de random_af
-                    h.append(f'({argument_5},{argument_6})')
+                    h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
             abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
@@ -952,7 +952,7 @@ def create_abstract_argumentation_framework(arguments: str, attacks: str,
         arg_list = [Argument(arg) for arg in arguments.split("$end$")]
         defeat_list = []
         for attack in attacks.split('$end$'):
-            att_list = attack.replace(')', '').replace('(', '').split("$,$")      
+            att_list = attack.replace(')', '').replace('(', '').replace('$A$', '').replace('$S$', '').split("$,$")      
             if len(att_list) == 2 and att_list[0] != '' and att_list[1] != '':
                 from_argument = Argument(att_list[0])
                 to_argument = Argument(att_list[1])
@@ -969,8 +969,6 @@ def create_abstract_argumentation_framework(arguments: str, attacks: str,
         selected_arguments = None
     
     data = get_argumentation_framework_graph_data(arg_framework, selected_arguments, color_blind_mode)
-
-    print(data['nodes'])
 
     colors=['blue','red','green','yellow']
     legend_elements=[]
@@ -2605,12 +2603,31 @@ def evaluate_abstract_argumentation_framework(arguments: str, attacks: str,
     if active_item != 'Evaluation':
         raise PreventUpdate
 
+    arg_list = [Argument(arg) for arg in arguments.split("$end$")]
+    defeat_list = []
+    for attack in attacks.split('$end$'):
+        att_list = attack.replace(')', '').replace('(', '').replace('$A$', '').replace('$S$', '').split("$,$")      
+        if len(att_list) == 2 and att_list[0] != '' and att_list[1] != '':
+            from_argument = Argument(att_list[0])
+            to_argument = Argument(att_list[1])
+            if from_argument not in arg_list or to_argument not in arg_list:
+                raise ValueError('Not a valid defeat, since one of the arguments does not exist.')
+            defeat_list.append(Defeat(Argument(att_list[0]), Argument(att_list[1])))
+
+    arg_framework = AbstractArgumentationFramework('AF', arg_list, defeat_list)
     # Read the abstract argumentation framework.
-    arg_framework = read_argumentation_framework(arguments, attacks)
+    #arg_framework = read_argumentation_framework(arguments, attacks)
+    print('arg_framework')
+    print(arg_framework)
 
     # Compute the extensions and put them in a list of sets.
     frozen_extensions = get_argumentation_framework_extensions(arg_framework, semantics)
+    print('frozen_extensions')
+    print(frozen_extensions)
     extensions = [set(frozen_extension) for frozen_extension in frozen_extensions]
+
+    print('sorted(extensions)')
+    print(sorted(extensions))
 
     # Make a button for each extension.
     extension_buttons = []
@@ -2636,8 +2653,8 @@ def evaluate_abstract_argumentation_framework(arguments: str, attacks: str,
                                                                                   'index': argument.name})
                                  for argument in sorted(accepted_arguments)]
 
-    return html.Div([html.B('The extension(s):'), html.Div(extension_buttons),
-                     html.B('The accepted argument(s):'), html.Div(accepted_argument_buttons),
+    return html.Div([#html.B('The extension(s):'), html.Div(extension_buttons),
+                     #html.B('The accepted argument(s):'), html.Div(accepted_argument_buttons),
                      html.P('Click on the extension/argument buttons to display the corresponding argument(s) '
                             'in the graph.')])
 
