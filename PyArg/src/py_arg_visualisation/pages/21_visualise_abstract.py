@@ -297,9 +297,9 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                     h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
-            abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
-            abstract_attacks_value = '\n\n'.join((str(defeat)for defeat in h) )
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
             return abstract_arguments_value, abstract_attacks_value
 
         if topic == 'Economy':
@@ -355,9 +355,9 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                     h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
-            abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
-            abstract_attacks_value = '\n\n'.join((str(defeat)for defeat in h) )
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
             return abstract_arguments_value, abstract_attacks_value
 
         if topic == 'Climate Change':
@@ -413,9 +413,9 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                     h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
-            abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
-            abstract_attacks_value = '\n\n'.join((str(defeat)for defeat in h) )
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
             return abstract_arguments_value, abstract_attacks_value
 
         if topic == 'Supreme Court':
@@ -471,9 +471,9 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                     h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
-            abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
-            abstract_attacks_value = '\n\n'.join((str(defeat)for defeat in h) )
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
             return abstract_arguments_value, abstract_attacks_value
 
         if topic == 'Minimum Wage':
@@ -529,9 +529,9 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                     h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
-            abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
-            abstract_attacks_value = '\n\n'.join((str(defeat)for defeat in h) )
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
             return abstract_arguments_value, abstract_attacks_value
 
         if topic == 'COVID':
@@ -587,9 +587,9 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                     h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
-            abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
-            abstract_attacks_value = '\n\n'.join((str(defeat)for defeat in h) )
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
             return abstract_arguments_value, abstract_attacks_value
         
         if topic == 'Healthcare':
@@ -645,9 +645,9 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                     h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
-            abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
-            abstract_attacks_value = '\n\n'.join((str(defeat)for defeat in h) )
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
             return abstract_arguments_value, abstract_attacks_value
 
         if topic == 'National Security':
@@ -703,9 +703,9 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                     h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
-            abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
-            abstract_attacks_value = '\n\n'.join((str(defeat)for defeat in h) )
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
             return abstract_arguments_value, abstract_attacks_value
 
         if topic == 'Why They Should Be Elected':
@@ -761,9 +761,9 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                     h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
-            abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
-            abstract_attacks_value = '\n\n'.join((str(defeat)for defeat in h) )
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
             return abstract_arguments_value, abstract_attacks_value
 
         if topic == 'Democracy':
@@ -819,9 +819,9 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                     h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
-            abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
-            abstract_attacks_value = '\n\n'.join((str(defeat)for defeat in h) )
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
             return abstract_arguments_value, abstract_attacks_value
         
         if topic == 'Integrity':
@@ -877,9 +877,9 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                     h.append(f'$S$({argument_5},{argument_6})')
             
             # Suppose que random_af est un objet AbstractArgumentationFramework avec des attributs arguments et defeats
-            abstract_arguments_value = '\n\n'.join((str(arg) for arg in l))
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
-            abstract_attacks_value = '\n\n'.join((str(defeat)for defeat in h) )
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
             return abstract_arguments_value, abstract_attacks_value
     return '', ''
 
@@ -2554,9 +2554,6 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
     return 'Click on a node/edge to see the explanation.'
 
 
-
-
-
 @callback(
     Output('21-af-download', 'data'),
     Input('21-af-download-button', 'n_clicks'),
@@ -2604,16 +2601,35 @@ def evaluate_abstract_argumentation_framework(arguments: str, attacks: str,
         raise PreventUpdate
 
     arg_list = [Argument(arg) for arg in arguments.split("$end$")]
-    defeat_list = []
+    defeat_list_att = []
+    defeat_list_sup = []
     for attack in attacks.split('$end$'):
-        att_list = attack.replace(')', '').replace('(', '').replace('$A$', '').replace('$S$', '').split("$,$")      
-        if len(att_list) == 2 and att_list[0] != '' and att_list[1] != '':
-            from_argument = Argument(att_list[0])
-            to_argument = Argument(att_list[1])
-            if from_argument not in arg_list or to_argument not in arg_list:
-                raise ValueError('Not a valid defeat, since one of the arguments does not exist.')
-            defeat_list.append(Defeat(Argument(att_list[0]), Argument(att_list[1])))
-
+        if attack[:3]=='$A$':
+            att_list = attack.replace(')', '').replace('(', '').replace('$A$', '').split("$,$")   
+            if len(att_list) == 2 and att_list[0] != '' and att_list[1] != '' and i==1:
+                from_argument = Argument(att_list[0])
+                to_argument = Argument(att_list[1])
+                if from_argument not in arg_list or to_argument not in arg_list:
+                    raise ValueError('Not a valid defeat, since one of the arguments does not exist.')
+                defeat_list_att.append(Defeat(Argument(att_list[0]), Argument(att_list[1])))
+        if attack[:3]=='$S$':
+            sup_list = attack.replace(')', '').replace('(', '').replace('$S$', '').split("$,$")   
+            if len(sup_list) == 2 and sup_list[0] != '' and sup_list[1] != '' and i==1:
+                from_argument = Argument(sup_list[0])
+                to_argument = Argument(sup_list[1])
+                if from_argument not in arg_list or to_argument not in arg_list:
+                    raise ValueError('Not a valid defeat, since one of the arguments does not exist.')
+                print(Defeat(Argument(sup_list[0]), Argument(sup_list[1])))
+                defeat_list_sup.append(Defeat(Argument(sup_list[0]), Argument(sup_list[1])))
+        
+    print("arg_list")
+    print(arg_list)
+    print("defeat_list_att")
+    print(defeat_list_att)
+    print("defeat_list_sup")
+    print(defeat_list_sup)
+    
+    defeat_list=defeat_list_att+defeat_list_sup
     arg_framework = AbstractArgumentationFramework('AF', arg_list, defeat_list)
     # Read the abstract argumentation framework.
     #arg_framework = read_argumentation_framework(arguments, attacks)
@@ -2622,12 +2638,15 @@ def evaluate_abstract_argumentation_framework(arguments: str, attacks: str,
 
     # Compute the extensions and put them in a list of sets.
     frozen_extensions = get_argumentation_framework_extensions(arg_framework, semantics)
-    print('frozen_extensions')
-    print(frozen_extensions)
+    #print('frozen_extensions')
+    #print(frozen_extensions)
     extensions = [set(frozen_extension) for frozen_extension in frozen_extensions]
 
-    print('sorted(extensions)')
-    print(sorted(extensions))
+    #print('extensions')
+    #print(extensions)
+    
+    #print('sorted(extensions)')
+    #print(sorted(extensions))
 
     # Make a button for each extension.
     extension_buttons = []
