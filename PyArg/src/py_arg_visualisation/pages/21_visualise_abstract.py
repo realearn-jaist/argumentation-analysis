@@ -952,7 +952,7 @@ def create_abstract_argumentation_framework(arguments: str, attacks: str,
         arg_list = [Argument(arg) for arg in arguments.split("$end$")]
         defeat_list = []
         for attack in attacks.split('$end$'):
-            att_list = attack.replace(')', '').replace('(', '').replace('$A$', '').replace('$S$', '').split("$,$")      
+            att_list = attack.replace(')', '').replace('(', '').replace('$A$', '').replace('$S$', '').split("$,$")     
             if len(att_list) == 2 and att_list[0] != '' and att_list[1] != '':
                 from_argument = Argument(att_list[0])
                 to_argument = Argument(att_list[1])
@@ -2605,36 +2605,52 @@ def evaluate_abstract_argumentation_framework(arguments: str, attacks: str,
     defeat_list_sup = []
     for attack in attacks.split('$end$'):
         if attack[:3]=='$A$':
-            att_list = attack.replace(')', '').replace('(', '').replace('$A$', '').split("$,$")   
-            if len(att_list) == 2 and att_list[0] != '' and att_list[1] != '' and i==1:
+            att_list = attack.replace(')', '').replace('(', '').replace('$A$', '').split(",")   
+            if len(att_list) == 2 and att_list[0] != '' and att_list[1] != '':
                 from_argument = Argument(att_list[0])
                 to_argument = Argument(att_list[1])
                 if from_argument not in arg_list or to_argument not in arg_list:
                     raise ValueError('Not a valid defeat, since one of the arguments does not exist.')
                 defeat_list_att.append(Defeat(Argument(att_list[0]), Argument(att_list[1])))
         if attack[:3]=='$S$':
-            sup_list = attack.replace(')', '').replace('(', '').replace('$S$', '').split("$,$")   
-            if len(sup_list) == 2 and sup_list[0] != '' and sup_list[1] != '' and i==1:
+            sup_list = attack.replace(')', '').replace('(', '').replace('$S$', '').split(",")   
+            if len(sup_list) == 2 and sup_list[0] != '' and sup_list[1] != '':
                 from_argument = Argument(sup_list[0])
                 to_argument = Argument(sup_list[1])
                 if from_argument not in arg_list or to_argument not in arg_list:
                     raise ValueError('Not a valid defeat, since one of the arguments does not exist.')
-                print(Defeat(Argument(sup_list[0]), Argument(sup_list[1])))
                 defeat_list_sup.append(Defeat(Argument(sup_list[0]), Argument(sup_list[1])))
-        
-    print("arg_list")
-    print(arg_list)
-    print("defeat_list_att")
-    print(defeat_list_att)
-    print("defeat_list_sup")
-    print(defeat_list_sup)
+
+
+    new_arg_list = []
+    defeat_list = []
+    for arg in arg_list:
+        n=0
+        for i in range(len(defeat_list_att)):
+            #print('defeat_list_att[i].to_argument')
+            #print(defeat_list_att[i].to_argument)
+            if arg == defeat_list_att[i].to_argument:
+                n=n-1
+        for i in range(len(defeat_list_sup)):
+            if arg == defeat_list_sup[i].to_argument:
+                n=n+1
+        if n>=0:
+            new_arg_list.append(arg)
+            for i in range(len(defeat_list_att)):
+                if arg == defeat_list_att[i].to_argument or arg == defeat_list_att[i].from_argument:
+                    defeat_list.append(defeat_list_att[i])
+            for i in range(len(defeat_list_sup)):
+                if arg == defeat_list_sup[i].to_argument or arg == defeat_list_sup[i].from_argument:
+                    defeat_list.append(defeat_list_sup[i])
+                        
     
-    defeat_list=defeat_list_att+defeat_list_sup
+    #defeat_list=defeat_list_att+defeat_list_sup
     arg_framework = AbstractArgumentationFramework('AF', arg_list, defeat_list)
     # Read the abstract argumentation framework.
     #arg_framework = read_argumentation_framework(arguments, attacks)
     print('arg_framework')
     print(arg_framework)
+    #create_abstract_argumentation_framework(arg_framework.arguments, arg_framework.defeats,)
 
     # Compute the extensions and put them in a list of sets.
     frozen_extensions = get_argumentation_framework_extensions(arg_framework, semantics)
