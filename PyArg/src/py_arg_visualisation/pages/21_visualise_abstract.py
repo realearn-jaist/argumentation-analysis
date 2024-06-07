@@ -2600,6 +2600,8 @@ def evaluate_abstract_argumentation_framework(arguments: str, attacks: str,
     if active_item != 'Evaluation':
         raise PreventUpdate
 
+    
+
     arg_list = [Argument(arg) for arg in arguments.split("$end$")]
     defeat_list_att = []
     defeat_list_sup = []
@@ -2627,8 +2629,6 @@ def evaluate_abstract_argumentation_framework(arguments: str, attacks: str,
     for arg in arg_list:
         n=0
         for i in range(len(defeat_list_att)):
-            #print('defeat_list_att[i].to_argument')
-            #print(defeat_list_att[i].to_argument)
             if arg == defeat_list_att[i].to_argument:
                 n=n-1
         for i in range(len(defeat_list_sup)):
@@ -2636,14 +2636,25 @@ def evaluate_abstract_argumentation_framework(arguments: str, attacks: str,
                 n=n+1
         if n>=0:
             new_arg_list.append(arg)
-            for i in range(len(defeat_list_att)):
-                if arg == defeat_list_att[i].to_argument or arg == defeat_list_att[i].from_argument:
+            
+    for arg in new_arg_list:   
+        for i in range(len(defeat_list_att)):
+            if arg == defeat_list_att[i].to_argument and defeat_list_att[i].from_argument in new_arg_list:
+                if defeat_list_att[i] not in defeat_list:
                     defeat_list.append(defeat_list_att[i])
-            for i in range(len(defeat_list_sup)):
-                if arg == defeat_list_sup[i].to_argument or arg == defeat_list_sup[i].from_argument:
+            if arg == defeat_list_att[i].from_argument and defeat_list_att[i].to_argument in new_arg_list:
+                if defeat_list_att[i] not in defeat_list:
+                    defeat_list.append(defeat_list_att[i])
+        for i in range(len(defeat_list_sup)):
+            if arg == defeat_list_sup[i].to_argument and defeat_list_sup[i].from_argument in new_arg_list:
+                if defeat_list_sup[i] not in defeat_list:
                     defeat_list.append(defeat_list_sup[i])
-                        
-    
+            if arg == defeat_list_sup[i].from_argument and defeat_list_sup[i].to_argument in new_arg_list:
+                if defeat_list_sup[i] not in defeat_list:
+                    defeat_list.append(defeat_list_sup[i])
+
+    print(new_arg_list)
+    print(defeat_list)
     #defeat_list=defeat_list_att+defeat_list_sup
     arg_framework = AbstractArgumentationFramework('AF', arg_list, defeat_list)
     # Read the abstract argumentation framework.
