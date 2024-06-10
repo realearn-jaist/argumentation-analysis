@@ -1831,6 +1831,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
 def display_click_data(selection, af_content: str, af_filename: str, topic: str,checkbox_values: list):
     if selection:
         node_id = selection['nodes'][0] if selection['nodes'] else None
+        edge_id_list = selection['edges']
         if node_id is not None:
             if topic == 'Racism':
                 elements = []
@@ -1843,9 +1844,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     att_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            att_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            att_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
                     if att_list:
                         elements.append(html.H3("Attack : "))
                         for item in att_list:
@@ -1865,9 +1870,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     sup_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            sup_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            sup_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
                     if sup_list:
                         elements.append(html.H3("Support : "))
                         for item in sup_list:
@@ -1891,9 +1900,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     att_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            att_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            att_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
                     if att_list:
                         elements.append(html.H3("Attack : "))
                         for item in att_list:
@@ -1914,9 +1927,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     sup_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            sup_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            sup_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
                     if sup_list:
                         elements.append(html.H3("Support : "))
                         for item in sup_list:
@@ -1940,9 +1957,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     att_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            att_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            att_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
                     if att_list:
                         elements.append(html.H3("Attack : "))
                         for item in att_list:
@@ -1963,9 +1984,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     sup_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            sup_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            sup_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
                     if sup_list:
                         elements.append(html.H3("Support : "))
                         for item in sup_list:
@@ -1989,9 +2014,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     att_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            att_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            att_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
                     if att_list:
                         elements.append(html.H3("Attack : "))
                         for item in att_list:
@@ -2012,9 +2041,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     sup_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            sup_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            sup_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
                     if sup_list:
                         elements.append(html.H3("Support : "))
                         for item in sup_list:
@@ -2038,9 +2071,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     att_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            att_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            att_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
                     if att_list:
                         elements.append(html.H3("Attack : "))
                         for item in att_list:
@@ -2061,9 +2098,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     sup_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            sup_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            sup_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
                     if sup_list:
                         elements.append(html.H3("Support : "))
                         for item in sup_list:
@@ -2087,9 +2128,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     att_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            att_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            att_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
                     if att_list:
                         elements.append(html.H3("Attack : "))
                         for item in att_list:
@@ -2110,9 +2155,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     sup_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            sup_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            sup_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
                     if sup_list:
                         elements.append(html.H3("Support : "))
                         for item in sup_list:
@@ -2136,9 +2185,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     att_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            att_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            att_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
                     if att_list:
                         elements.append(html.H3("Attack : "))
                         for item in att_list:
@@ -2159,9 +2212,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     sup_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            sup_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            sup_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
                     if sup_list:
                         elements.append(html.H3("Support : "))
                         for item in sup_list:
@@ -2185,9 +2242,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     att_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            att_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            att_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
                     if att_list:
                         elements.append(html.H3("Attack : "))
                         for item in att_list:
@@ -2208,9 +2269,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     sup_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            sup_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            sup_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
                     if sup_list:
                         elements.append(html.H3("Support : "))
                         for item in sup_list:
@@ -2234,9 +2299,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     att_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            att_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            att_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
                     if att_list:
                         elements.append(html.H3("Attack : "))
                         for item in att_list:
@@ -2257,9 +2326,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     sup_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            sup_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            sup_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
                     if sup_list:
                         elements.append(html.H3("Support : "))
                         for item in sup_list:
@@ -2283,9 +2356,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     att_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            att_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            att_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
                     if att_list:
                         elements.append(html.H3("Attack : "))
                         for item in att_list:
@@ -2306,9 +2383,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     sup_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            sup_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            sup_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
                     if sup_list:
                         elements.append(html.H3("Support : "))
                         for item in sup_list:
@@ -2332,9 +2413,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     att_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            att_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            att_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
                     if att_list:
                         elements.append(html.H3("Attack : "))
                         for item in att_list:
@@ -2355,9 +2440,13 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                     sup_by_list=[]
                     for index, row in df.iterrows():
                         if row.iloc[4] == node_id:
-                            sup_list.append(row.iloc[3])
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
                         if row.iloc[5] == node_id:
-                            sup_by_list.append(row.iloc[3])
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
                     if sup_list:
                         elements.append(html.H3("Support : "))
                         for item in sup_list:
