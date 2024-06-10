@@ -4,7 +4,7 @@ from typing import List, Dict
 
 import dash
 import visdcc
-from dash import html, callback, Input, Output, State, ALL, dcc
+from dash import html, callback, Input, Output, State, ALL, dcc, ctx
 from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
 
@@ -86,6 +86,7 @@ def get_abstract_setting_specification_div():
             ], className="mt-4"),
             dbc.Row([dbc.Col(dbc.Button('Display', id='generate-random-af-button', n_clicks=0,
                                         className='w-100')),
+                     dcc.Store(id='generation-results'),
                      ], className='mt-2'),
             dbc.Row([
                 dbc.Col([
@@ -140,7 +141,6 @@ def get_abstract_evaluation_div():
                         {'label': 'Eager', 'value': 'Eager'},
                     ], value='Complete', id='abstract-evaluation-semantics')),
                 ]),
-
                 dbc.Row([
                     dbc.Col(html.B('Evaluation strategy')),
                     dbc.Col(dbc.Select(
@@ -149,8 +149,9 @@ def get_abstract_evaluation_div():
                             {'label': 'Skeptical', 'value': 'Skeptical'}
                         ], value='Credulous', id='abstract-evaluation-strategy')),
                 ]),
-                dbc.Row(id='abstract-evaluation')
-            
+                dbc.Row(id='abstract-evaluation'),
+                dcc.Store(id='evaluation-results'),
+                dbc.Row([dbc.Col(dbc.Button('Display', id='generate-accept-af-button', n_clicks=0, className='w-100')),], className='mt-2'),
         ])
     ])
 
@@ -232,13 +233,13 @@ def replace_spaces(argument):
     return argument.replace(" ", "_").replace(",", ";")
 
 @callback(
-    Output('abstract-arguments', 'value'),
-    Output('abstract-attacks', 'value'),
+    Output('generation-results', 'data'),
     Input('generate-random-af-button', 'n_clicks'),
     Input('upload-af', 'contents'),
     State('upload-af', 'filename'),
     State('output-dropdown', 'children'),
-    State('checkbox', 'value')
+    State('checkbox', 'value'),
+    prevent_initial_call=True
 )
 def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_content: str, af_filename: str, topic: str, checkbox_values: list):
     """
@@ -300,7 +301,13 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-            return abstract_arguments_value, abstract_attacks_value
+
+
+            results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+            return results
 
         if topic == 'Economy':
             l=[]
@@ -358,7 +365,12 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-            return abstract_arguments_value, abstract_attacks_value
+            
+            results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+            return results
 
         if topic == 'Climate Change':
             l=[]
@@ -416,7 +428,12 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-            return abstract_arguments_value, abstract_attacks_value
+            
+            results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+            return results
 
         if topic == 'Supreme Court':
             l=[]
@@ -474,7 +491,12 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-            return abstract_arguments_value, abstract_attacks_value
+            
+            results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+            return results
 
         if topic == 'Minimum Wage':
             l=[]
@@ -532,7 +554,12 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-            return abstract_arguments_value, abstract_attacks_value
+            
+            results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+            return results
 
         if topic == 'COVID':
             l=[]
@@ -590,7 +617,12 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-            return abstract_arguments_value, abstract_attacks_value
+            
+            results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+            return results
         
         if topic == 'Healthcare':
             l=[]
@@ -648,7 +680,12 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-            return abstract_arguments_value, abstract_attacks_value
+            
+            results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+            return results
 
         if topic == 'National Security':
             l=[]
@@ -706,7 +743,12 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-            return abstract_arguments_value, abstract_attacks_value
+            
+            results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+            return results
 
         if topic == 'Why They Should Be Elected':
             l=[]
@@ -764,7 +806,12 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-            return abstract_arguments_value, abstract_attacks_value
+            
+            results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+            return results
 
         if topic == 'Democracy':
             l=[]
@@ -822,7 +869,12 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-            return abstract_arguments_value, abstract_attacks_value
+            
+            results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+            return results
         
         if topic == 'Integrity':
             l=[]
@@ -880,8 +932,13 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-            return abstract_arguments_value, abstract_attacks_value
-    return '', ''
+            
+            results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+            return results
+    return {}
 
 
 
@@ -929,6 +986,12 @@ def create_legend_colors(colors: list, speakers: list):
 @callback(
     Output('abstract-argumentation-graph', 'data'),
     Output('legend-colors', 'children'),
+
+    Output('abstract-arguments', 'value'),
+    Output('abstract-attacks', 'value'),
+
+    Input('evaluation-results', 'data'),
+    Input('generation-results', 'data'),
     Input('abstract-arguments', 'value'),
     Input('abstract-attacks', 'value'),
     Input('selected-argument-store-abstract', 'data'),
@@ -937,7 +1000,8 @@ def create_legend_colors(colors: list, speakers: list):
     State('checkbox', 'value'),
     prevent_initial_call=True
 )
-def create_abstract_argumentation_framework(arguments: str, attacks: str,
+def create_abstract_argumentation_framework(evaluation_results, generation_results,
+                                            arguments: str, attacks: str,
                                             selected_arguments: Dict[str, List[str]],
                                             color_blind_mode: bool, 
                                             topic: str, 
@@ -945,6 +1009,20 @@ def create_abstract_argumentation_framework(arguments: str, attacks: str,
     """
     Send the AF data to the graph for plotting.
     """
+
+    trigger_id = ctx.triggered_id
+
+    if trigger_id == 'evaluation-results' and evaluation_results is not None:
+        generation_results = None
+        arguments = evaluation_results['arguments']
+        attacks = evaluation_results['attacks']
+    
+    elif trigger_id == 'generation-results' and generation_results is not None:
+        evaluation_results = None
+        arguments = generation_results['arguments']
+        attacks = generation_results['attacks']
+
+        
     arguments=replace_fin(replace_spaces2(arguments))
     attacks=replace_fin(replace_spaces2(replace_mid(attacks)))
 
@@ -1739,7 +1817,7 @@ def create_abstract_argumentation_framework(arguments: str, attacks: str,
                 lab=lab+'\n' 
         data['nodes'][i]['label']=lab
     
-    return data,legend_elements
+    return data, legend_elements, arguments, attacks
 
 
 @callback(
@@ -2586,123 +2664,103 @@ def download_generated_abstract_argumentation_framework(
 
 
 @callback(
+    Output('evaluation-results', 'data'),
     Output('abstract-evaluation', 'children'),
+    Input('generate-accept-af-button', 'n_clicks'),
     State('abstract-arguments', 'value'),
     State('abstract-attacks', 'value'),
-    Input('abstract-evaluation-accordion', 'active_item'),
-    Input('abstract-evaluation-semantics', 'value'),
-    Input('abstract-evaluation-strategy', 'value'),
+    State('abstract-evaluation-accordion', 'active_item'),
+    State('abstract-evaluation-semantics', 'value'),
+    State('abstract-evaluation-strategy', 'value'),
     prevent_initial_call=True
 )
-def evaluate_abstract_argumentation_framework(arguments: str, attacks: str,
+def evaluate_abstract_argumentation_framework(_nr_of_clicks_accept: int, arguments: str, attacks: str,
                                               active_item: str,
                                               semantics: str, strategy: str):
     if active_item != 'Evaluation':
         raise PreventUpdate
 
-    
+    if dash.callback_context.triggered_id == 'generate-accept-af-button':
+        arg_list = [Argument(arg) for arg in arguments.split("$end$")]
+        defeat_list_att = []
+        defeat_list_sup = []
+        for attack in attacks.split('$end$'):
+            if attack[:3]=='$A$':
+                att_list = attack.replace(')', '').replace('(', '').replace('$A$', '').split("$,$")   
+                if len(att_list) == 2 and att_list[0] != '' and att_list[1] != '':
+                    from_argument = Argument(att_list[0])
+                    to_argument = Argument(att_list[1])
+                    if from_argument not in arg_list or to_argument not in arg_list:
+                        raise ValueError('Not a valid defeat, since one of the arguments does not exist.')
+                    defeat_list_att.append(Defeat(Argument(att_list[0]), Argument(att_list[1])))
+            if attack[:3]=='$S$':
+                sup_list = attack.replace(')', '').replace('(', '').replace('$S$', '').split("$,$")   
+                if len(sup_list) == 2 and sup_list[0] != '' and sup_list[1] != '':
+                    from_argument = Argument(sup_list[0])
+                    to_argument = Argument(sup_list[1])
+                    if from_argument not in arg_list or to_argument not in arg_list:
+                        raise ValueError('Not a valid defeat, since one of the arguments does not exist.')
+                    defeat_list_sup.append(Defeat(Argument(sup_list[0]), Argument(sup_list[1])))
 
-    arg_list = [Argument(arg) for arg in arguments.split("$end$")]
-    defeat_list_att = []
-    defeat_list_sup = []
-    for attack in attacks.split('$end$'):
-        if attack[:3]=='$A$':
-            att_list = attack.replace(')', '').replace('(', '').replace('$A$', '').split(",")   
-            if len(att_list) == 2 and att_list[0] != '' and att_list[1] != '':
-                from_argument = Argument(att_list[0])
-                to_argument = Argument(att_list[1])
-                if from_argument not in arg_list or to_argument not in arg_list:
-                    raise ValueError('Not a valid defeat, since one of the arguments does not exist.')
-                defeat_list_att.append(Defeat(Argument(att_list[0]), Argument(att_list[1])))
-        if attack[:3]=='$S$':
-            sup_list = attack.replace(')', '').replace('(', '').replace('$S$', '').split(",")   
-            if len(sup_list) == 2 and sup_list[0] != '' and sup_list[1] != '':
-                from_argument = Argument(sup_list[0])
-                to_argument = Argument(sup_list[1])
-                if from_argument not in arg_list or to_argument not in arg_list:
-                    raise ValueError('Not a valid defeat, since one of the arguments does not exist.')
-                defeat_list_sup.append(Defeat(Argument(sup_list[0]), Argument(sup_list[1])))
+
+        new_arg_list = []
+        defeat_list = []
+        for arg in arg_list:
+            n=0
+            for i in range(len(defeat_list_att)):
+                if arg == defeat_list_att[i].to_argument:
+                    n=n-1
+            for i in range(len(defeat_list_sup)):
+                if arg == defeat_list_sup[i].to_argument:
+                    n=n+1
+            if n>=0:
+                new_arg_list.append(arg)
+                
+        for arg in new_arg_list:   
+            for i in range(len(defeat_list_att)):
+                if arg == defeat_list_att[i].to_argument and defeat_list_att[i].from_argument in new_arg_list:
+                    if defeat_list_att[i] not in defeat_list:
+                        defeat_list.append(defeat_list_att[i])
+                if arg == defeat_list_att[i].from_argument and defeat_list_att[i].to_argument in new_arg_list:
+                    if defeat_list_att[i] not in defeat_list:
+                        defeat_list.append(defeat_list_att[i])
+            for i in range(len(defeat_list_sup)):
+                if arg == defeat_list_sup[i].to_argument and defeat_list_sup[i].from_argument in new_arg_list:
+                    if defeat_list_sup[i] not in defeat_list:
+                        defeat_list.append(defeat_list_sup[i])
+                if arg == defeat_list_sup[i].from_argument and defeat_list_sup[i].to_argument in new_arg_list:
+                    if defeat_list_sup[i] not in defeat_list:
+                        defeat_list.append(defeat_list_sup[i])
 
 
-    new_arg_list = []
-    defeat_list = []
-    for arg in arg_list:
-        n=0
-        for i in range(len(defeat_list_att)):
-            if arg == defeat_list_att[i].to_argument:
-                n=n-1
-        for i in range(len(defeat_list_sup)):
-            if arg == defeat_list_sup[i].to_argument:
-                n=n+1
-        if n>=0:
-            new_arg_list.append(arg)
-            
-    for arg in new_arg_list:   
-        for i in range(len(defeat_list_att)):
-            if arg == defeat_list_att[i].to_argument and defeat_list_att[i].from_argument in new_arg_list:
-                if defeat_list_att[i] not in defeat_list:
-                    defeat_list.append(defeat_list_att[i])
-            if arg == defeat_list_att[i].from_argument and defeat_list_att[i].to_argument in new_arg_list:
-                if defeat_list_att[i] not in defeat_list:
-                    defeat_list.append(defeat_list_att[i])
-        for i in range(len(defeat_list_sup)):
-            if arg == defeat_list_sup[i].to_argument and defeat_list_sup[i].from_argument in new_arg_list:
-                if defeat_list_sup[i] not in defeat_list:
-                    defeat_list.append(defeat_list_sup[i])
-            if arg == defeat_list_sup[i].from_argument and defeat_list_sup[i].to_argument in new_arg_list:
-                if defeat_list_sup[i] not in defeat_list:
-                    defeat_list.append(defeat_list_sup[i])
+        new_defeat_list=[]
+        att_list = attacks.split('$end$')
 
-    print(new_arg_list)
-    print(defeat_list)
-    #defeat_list=defeat_list_att+defeat_list_sup
-    arg_framework = AbstractArgumentationFramework('AF', arg_list, defeat_list)
-    # Read the abstract argumentation framework.
-    #arg_framework = read_argumentation_framework(arguments, attacks)
-    print('arg_framework')
-    print(arg_framework)
-    #create_abstract_argumentation_framework(arg_framework.arguments, arg_framework.defeats,)
+        for defeat in defeat_list:
+            ndef=f'{defeat.from_argument}, {defeat.to_argument}'
+            for att in att_list:
+                natt= att[3:].replace('(','').replace(')','').replace('$,$',', ')
+                if natt == ndef:
+                    nn=str(defeat.from_argument)
+                    nn2=str(defeat.to_argument)
+                    new_defeat_list.append(f'{att[:3]}({nn.replace(' ','_').replace(',',';')},{nn2.replace(' ','_').replace(',',';')})')
 
-    # Compute the extensions and put them in a list of sets.
-    frozen_extensions = get_argumentation_framework_extensions(arg_framework, semantics)
-    #print('frozen_extensions')
-    #print(frozen_extensions)
-    extensions = [set(frozen_extension) for frozen_extension in frozen_extensions]
 
-    #print('extensions')
-    #print(extensions)
-    
-    #print('sorted(extensions)')
-    #print(sorted(extensions))
+        abstract_arguments_value = '$end$'.join((str(arg) for arg in new_arg_list))    
 
-    # Make a button for each extension.
-    extension_buttons = []
-    for extension in sorted(extensions):
-        out_arguments = {attacked for attacked in arg_framework.arguments
-                         if any(argument in arg_framework.get_incoming_defeat_arguments(attacked)
-                                for argument in extension)}
-        undecided_arguments = {argument for argument in arg_framework.arguments
-                               if argument not in extension and argument not in out_arguments}
-        extension_readable_str = '{' + ', '.join(argument.name for argument in sorted(extension)) + '}'
-        extension_in_str = '+'.join(argument.name for argument in sorted(extension))
-        extension_out_str = '+'.join(argument.name for argument in sorted(out_arguments))
-        extension_undecided_str = '+'.join(argument.name for argument in sorted(undecided_arguments))
-        extension_long_str = '|'.join([extension_in_str, extension_undecided_str, extension_out_str])
-        extension_buttons.append(dbc.Button([extension_readable_str], color='secondary',
-                                            id={'type': 'extension-button-abstract', 'index': extension_long_str}))
+        abstract_attacks_value = '$end$'.join((defeat for defeat in new_defeat_list) )
 
-    # Based on the extensions, get the acceptance status of arguments.
-    accepted_arguments = get_accepted_arguments(extensions, strategy)
+        results = {
+        'arguments': abstract_arguments_value,
+        'attacks': abstract_attacks_value,
+        }
 
-    # Make a button for each accepted argument.
-    accepted_argument_buttons = [dbc.Button(argument.name, color='secondary', id={'type': 'argument-button-abstract',
-                                                                                  'index': argument.name})
-                                 for argument in sorted(accepted_arguments)]
+        return results, html.Div([html.P('Click on the extension/argument buttons to display the corresponding argument(s) in the graph.')])
 
-    return html.Div([#html.B('The extension(s):'), html.Div(extension_buttons),
-                     #html.B('The accepted argument(s):'), html.Div(accepted_argument_buttons),
-                     html.P('Click on the extension/argument buttons to display the corresponding argument(s) '
-                            'in the graph.')])
+    return {}, html.Div([html.P('Click on the extension/argument buttons to display the corresponding argument(s) in the graph.')])
+
+
+
 
 
 @callback(
