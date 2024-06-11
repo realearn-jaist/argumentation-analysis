@@ -4,7 +4,7 @@ from typing import List, Dict
 
 import dash
 import visdcc
-from dash import html, callback, Input, Output, State, ALL, dcc, ctx
+from dash import html, callback, Input, Output, State, ALL, dcc, ctx, Dash
 from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
 
@@ -69,8 +69,9 @@ def get_abstract_setting_specification_div():
                                 ),
                                 html.Div(id='output-dropdown')
                             ], width=4),
-                     dbc.Col(dcc.Upload(dbc.Button('Add argument', className='w-100'), id='upload-af')),
-                     dbc.Col(dcc.Upload(dbc.Button('Add relationship', className='w-100'), id='upload-af'))
+                     dbc.Col([dcc.Upload(dbc.Button('Upload AF', className='w-100'), id='upload-af'),
+                                html.Div(id='output-upload')
+                            ]),
                      ], className='mt-2'),
             dbc.Row([
                 dbc.Col(dbc.Checklist(
@@ -203,7 +204,8 @@ layout = html.Div([html.H1('Visualisation of abstract argumentation frameworks')
      Input('national-security', 'n_clicks'),
      Input('why-they-should-be-elected', 'n_clicks'),
      Input('democracy', 'n_clicks'),
-     Input('integrity', 'n_clicks')]
+     Input('integrity', 'n_clicks')],
+    prevent_initial_call=True
 )
 def update_output(*args):
     ctx = dash.callback_context
@@ -229,11 +231,28 @@ def update_output(*args):
 
     return topic_dict.get(button_id, 'No topic selected')
 
+
+@callback(
+    Output('output-upload', 'children'),
+    Input('upload-af', 'contents'),
+    State('upload-af', 'filename'),
+    prevent_initial_call=True
+)
+def update_upload(af_content: str, af_filename: str):
+    if af_content is not None:
+        return af_filename
+    return 'No file selected'
+
+
+
 def replace_spaces(argument):
     return argument.replace(" ", "_").replace(",", ";")
 
 @callback(
     Output('generation-results', 'data'),
+    Output('generate-random-af-button', 'n_clicks'),
+    Output('upload-af', 'contents'),
+    Output('upload-af', 'filename'),
     Input('generate-random-af-button', 'n_clicks'),
     Input('upload-af', 'contents'),
     State('upload-af', 'filename'),
@@ -245,7 +264,49 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
     """
     Generate a random AF after clicking the button and put the result in the text box.
     """
-    if dash.callback_context.triggered_id == 'generate-random-af-button':
+    print(_nr_of_clicks_random)
+    if _nr_of_clicks_random == 1:
+        af_content=None
+        af_filename=None
+
+    if af_filename == 'test.csv':
+
+        if af_content.startswith("data:text/csv;base64,"):
+            content_string = af_content[len("data:text/csv;base64,"):]
+        decoded = base64.b64decode(content_string)
+        decoded_str = decoded.decode('utf-8')
+        lines = decoded_str.splitlines()
+        data = [line.split('$,$') for line in lines]
+
+        df = pd.DataFrame(data[1:], columns=data[0]) if len(data) > 1 else pd.DataFrame(columns=data[0])
+        print(df)
+
+        l=[]
+        h=[]
+        for index, row in df.iterrows():
+            sentence1 = row.iloc[4].replace(' ','_').replace(',',';')
+            sentence2 = row.iloc[5]
+
+            if sentence1 not in l:
+                l.append(sentence1)
+            if sentence2 not in l:
+                l.append(sentence2)
+            
+            if row.iloc[2] == 'Attack':
+                h.append(f'$A$({sentence1},{sentence2})')
+        print(h)
+        abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
+        abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
+
+        results = {
+                'arguments': abstract_arguments_value,
+                'attacks': abstract_attacks_value
+            }
+        print(results)
+        return results,0,af_content,af_filename
+
+    elif dash.callback_context.triggered_id == 'generate-random-af-button':
+        _nr_of_clicks_random=0
         if topic == 'Racism':
             l=[]
             h=[]
@@ -302,12 +363,12 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
             # Construction de la représentation des attaques en utilisant les éléments de defeats
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
 
-
             results = {
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            return results
+            print(results)
+            return results,0,af_content,af_filename
 
         if topic == 'Economy':
             l=[]
