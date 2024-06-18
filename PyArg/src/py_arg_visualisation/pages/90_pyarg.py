@@ -65,7 +65,21 @@ layout = dbc.Container([
         html.A([html.Img(src='/assets/image9.png', style={'width': '50%', 'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'})], href='https://docs.google.com/presentation/d/1Bl47jzgVVAB7U0b9fACJ9ni7j0aZLAITzIe2UH4sTtQ/edit#slide=id.g4dfce81f19_0_45',target="_blank")
     ]),
     dbc.Row([
-        html.P('This prsentation explan the theory in nonmonotonic reasoning and human argumentation. ')
-    ])
+        html.P('This prsentation explan the theory in nonmonotonic reasoning and human argumentation. '),
+        html.P('I also do some reshearch about the System Usability Scale (SUS) and Systeme Usability and Learnability Scale (SULS) to learn more about the evaluation of an argumentation systeme. The allow me to realize the interactionsbetween argulents. '),
+        html.P(['This presentation took place on June 19th and is based on the articul "Misguided by research — The two dimensions of SUS" by George MELISSOURGOS. ',
+        html.A('(Linke of the original document). ', href='https://medium.com/@geormelissourgos/leveraging-the-full-potential-of-the-sus-the-two-dimensions-b5846facec3',target="_blank"),
+        ])
+    ]),
+    dbc.Row([
+        html.A([html.Img(src='/assets/image10.png', style={'width': '50%', 'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'})], href='https://docs.google.com/presentation/d/1TXvdsbJ0PBYPrSSD9ZK097Q6sED7aENcUBrao41oy5Q/edit#slide=id.g206563da1c8_0_1',target="_blank")
+    ]),
+    dbc.Row([
+        html.H2('5-Beginning of Machine Learning'),
+        html.P('For this part with started implementing some machine learning to creat an argument mining systeme. I started by adding an SVM with different karnels. I divided my dataset on 80% train and 20% test. I used various k_fold. Here is some result. '),
+    ]),
+    dbc.Row([
+        html.A([html.Img(src='/assets/image11.png', style={'width': '50%', 'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'})])
+    ]),
 ], className='page')
 
