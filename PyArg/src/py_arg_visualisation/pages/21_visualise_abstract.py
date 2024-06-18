@@ -264,46 +264,42 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
     """
     Generate a random AF after clicking the button and put the result in the text box.
     """
-    print(_nr_of_clicks_random)
     if _nr_of_clicks_random == 1:
         af_content=None
         af_filename=None
+    if af_filename != None:
+        if af_filename[-4:] == '.csv':
 
-    if af_filename == 'test.csv':
+            if af_content.startswith("data:text/csv;base64,"):
+                content_string = af_content[len("data:text/csv;base64,"):]
+            decoded = base64.b64decode(content_string)
+            decoded_str = decoded.decode('utf-8')
+            lines = decoded_str.splitlines()
+            data = [line.split('$,$') for line in lines]
 
-        if af_content.startswith("data:text/csv;base64,"):
-            content_string = af_content[len("data:text/csv;base64,"):]
-        decoded = base64.b64decode(content_string)
-        decoded_str = decoded.decode('utf-8')
-        lines = decoded_str.splitlines()
-        data = [line.split('$,$') for line in lines]
+            df = pd.DataFrame(data[1:], columns=data[0]) if len(data) > 1 else pd.DataFrame(columns=data[0])
 
-        df = pd.DataFrame(data[1:], columns=data[0]) if len(data) > 1 else pd.DataFrame(columns=data[0])
-        print(df)
+            l=[]
+            h=[]
+            for index, row in df.iterrows():
+                sentence1 = row.iloc[4].replace(' ','_').replace(',',';')
+                sentence2 = row.iloc[5].replace(' ','_').replace(',',';')
 
-        l=[]
-        h=[]
-        for index, row in df.iterrows():
-            sentence1 = row.iloc[4].replace(' ','_').replace(',',';')
-            sentence2 = row.iloc[5]
+                if sentence1 not in l:
+                    l.append(sentence1)
+                if sentence2 not in l:
+                    l.append(sentence2)
+                
+                if row.iloc[2] == 'Attack':
+                    h.append(f'$A$({sentence1},{sentence2})')
+            abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
+            abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
 
-            if sentence1 not in l:
-                l.append(sentence1)
-            if sentence2 not in l:
-                l.append(sentence2)
-            
-            if row.iloc[2] == 'Attack':
-                h.append(f'$A$({sentence1},{sentence2})')
-        print(h)
-        abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
-        abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
-
-        results = {
-                'arguments': abstract_arguments_value,
-                'attacks': abstract_attacks_value
-            }
-        print(results)
-        return results,0,af_content,af_filename
+            results = {
+                    'arguments': abstract_arguments_value,
+                    'attacks': abstract_attacks_value
+                }
+            return results,0,af_content,af_filename
 
     elif dash.callback_context.triggered_id == 'generate-random-af-button':
         _nr_of_clicks_random=0
@@ -367,7 +363,6 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            print(results)
             return results,0,af_content,af_filename
 
         if topic == 'Economy':
@@ -431,7 +426,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            return results
+            return results,0,af_content,af_filename
 
         if topic == 'Climate Change':
             l=[]
@@ -494,7 +489,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            return results
+            return results,0,af_content,af_filename
 
         if topic == 'Supreme Court':
             l=[]
@@ -557,7 +552,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            return results
+            return results,0,af_content,af_filename
 
         if topic == 'Minimum Wage':
             l=[]
@@ -620,7 +615,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            return results
+            return results,0,af_content,af_filename
 
         if topic == 'COVID':
             l=[]
@@ -683,7 +678,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            return results
+            return results,0,af_content,af_filename
         
         if topic == 'Healthcare':
             l=[]
@@ -746,7 +741,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            return results
+            return results,0,af_content,af_filename
 
         if topic == 'National Security':
             l=[]
@@ -809,7 +804,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            return results
+            return results,0,af_content,af_filename
 
         if topic == 'Why They Should Be Elected':
             l=[]
@@ -872,7 +867,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            return results
+            return results,0,af_content,af_filename
 
         if topic == 'Democracy':
             l=[]
@@ -935,7 +930,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            return results
+            return results,0,af_content,af_filename
         
         if topic == 'Integrity':
             l=[]
@@ -998,7 +993,7 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 'arguments': abstract_arguments_value,
                 'attacks': abstract_attacks_value
             }
-            return results
+            return results,0,af_content,af_filename
     return {}
 
 
@@ -1047,7 +1042,6 @@ def create_legend_colors(colors: list, speakers: list):
 @callback(
     Output('abstract-argumentation-graph', 'data'),
     Output('legend-colors', 'children'),
-
     Output('abstract-arguments', 'value'),
     Output('abstract-attacks', 'value'),
 
@@ -1059,6 +1053,8 @@ def create_legend_colors(colors: list, speakers: list):
     State('color-blind-mode', 'on'),
     State('output-dropdown', 'children'),
     State('checkbox', 'value'),
+    State('upload-af', 'contents'),
+    State('upload-af', 'filename'),
     prevent_initial_call=True
 )
 def create_abstract_argumentation_framework(evaluation_results, generation_results,
@@ -1066,22 +1062,33 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                                             selected_arguments: Dict[str, List[str]],
                                             color_blind_mode: bool, 
                                             topic: str, 
-                                            checkbox_values: list):
+                                            checkbox_values: list,
+                                            af_content: str, af_filename: str):
     """
     Send the AF data to the graph for plotting.
     """
-
+    
     trigger_id = ctx.triggered_id
-
+        
     if trigger_id == 'evaluation-results' and evaluation_results is not None:
         generation_results = None
         arguments = evaluation_results['arguments']
         attacks = evaluation_results['attacks']
-    
     elif trigger_id == 'generation-results' and generation_results is not None:
         evaluation_results = None
         arguments = generation_results['arguments']
         attacks = generation_results['attacks']
+    
+    if af_filename!=None:
+        if af_content.startswith("data:text/csv;base64,"):
+            content_string = af_content[len("data:text/csv;base64,"):]
+        decoded = base64.b64decode(content_string)
+        decoded_str = decoded.decode('utf-8')
+        lines = decoded_str.splitlines()
+        data = [line.split('$,$') for line in lines]
+
+        df = pd.DataFrame(data[1:], columns=data[0]) if len(data) > 1 else pd.DataFrame(columns=data[0])
+
 
         
     arguments=replace_fin(replace_spaces2(arguments))
@@ -1112,7 +1119,37 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
     colors=['blue','red','green','yellow']
     legend_elements=[]
 
-    if topic == 'Racism':
+    if af_filename!=None:
+        l=[]
+        for i in range(len(data['nodes'])):
+            for index, row in df.iterrows():
+                # Extraire les éléments de la 5ème et 6ème colonne
+                argument_5 = row.iloc[4]
+                argument_6 = row.iloc[5]
+
+                argument_7 = row.iloc[6]
+                argument_8 = row.iloc[7]
+                    
+                couleur1 = 'gray'  # default color if no match
+                couleur2 = 'gray'  # default color if no match
+                if argument_7 not in l:
+                    couleur1=colors[len(l)]
+                    l.append(argument_7)
+                else:
+                    couleur1 = colors[l.index(argument_7)]
+
+                if argument_8 not in l:
+                    couleur2=colors[len(l)]
+                    l.append(argument_8)
+                else:
+                    couleur2 = colors[l.index(argument_8)]
+                if data['nodes'][i]['id'] == argument_5:
+                    data['nodes'][i]['color']=couleur1
+                if data['nodes'][i]['id'] == argument_6:
+                    data['nodes'][i]['color']=couleur2  
+        legend_elements=create_legend_colors(colors,l)   
+    
+    elif topic == 'Racism':
         if 'attack' in checkbox_values:
             base_path = os.path.dirname(__file__)
             file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_racism_attack.csv')
@@ -1180,7 +1217,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                         data['nodes'][i]['color']=couleur2
         legend_elements=create_legend_colors(colors,l)
     
-    if topic == 'Economy':
+    elif topic == 'Economy':
         if 'attack' in checkbox_values:
             base_path = os.path.dirname(__file__)
             file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_econemy_attack.csv')
@@ -1247,7 +1284,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                         data['nodes'][i]['color']=couleur2
         legend_elements=create_legend_colors(colors,l)
     
-    if topic == 'Climate Change':
+    elif topic == 'Climate Change':
         if 'attack' in checkbox_values:
             base_path = os.path.dirname(__file__)
             file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_climate_attack.csv')
@@ -1316,7 +1353,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                         data['nodes'][i]['color']=couleur2
         legend_elements=create_legend_colors(colors,l)
 
-    if topic == 'Supreme Court':
+    elif topic == 'Supreme Court':
         if 'attack' in checkbox_values:
             base_path = os.path.dirname(__file__)
             file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_court_attack.csv')
@@ -1385,7 +1422,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                         data['nodes'][i]['color']=couleur2
         legend_elements=create_legend_colors(colors,l)
     
-    if topic == 'Minimum Wage':
+    elif topic == 'Minimum Wage':
         if 'attack' in checkbox_values:
             base_path = os.path.dirname(__file__)
             file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_wage_attack.csv')
@@ -1454,7 +1491,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                         data['nodes'][i]['color']=couleur2
         legend_elements=create_legend_colors(colors,l)
 
-    if topic == 'COVID':
+    elif topic == 'COVID':
         if 'attack' in checkbox_values:
             base_path = os.path.dirname(__file__)
             file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_covid_attack.csv')
@@ -1523,7 +1560,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                         data['nodes'][i]['color']=couleur2
         legend_elements=create_legend_colors(colors,l)
 
-    if topic == 'Healthcare':
+    elif topic == 'Healthcare':
         if 'attack' in checkbox_values:
             base_path = os.path.dirname(__file__)
             file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_healthcare_attack.csv')
@@ -1592,7 +1629,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                         data['nodes'][i]['color']=couleur2
         legend_elements=create_legend_colors(colors,l)
 
-    if topic == 'National Security':
+    elif topic == 'National Security':
         if 'attack' in checkbox_values:
             base_path = os.path.dirname(__file__)
             file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_security_attack.csv')
@@ -1661,7 +1698,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                         data['nodes'][i]['color']=couleur2
         legend_elements=create_legend_colors(colors,l)
 
-    if topic == 'Why They Should Be Elected':
+    elif topic == 'Why They Should Be Elected':
         if 'attack' in checkbox_values:
             base_path = os.path.dirname(__file__)
             file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_elected_attack.csv')
@@ -1730,7 +1767,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                         data['nodes'][i]['color']=couleur2
         legend_elements=create_legend_colors(colors,l)
 
-    if topic == 'Democracy':
+    elif topic == 'Democracy':
         if 'attack' in checkbox_values:
             base_path = os.path.dirname(__file__)
             file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_democracy_attack.csv')
@@ -1799,7 +1836,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                         data['nodes'][i]['color']=couleur2
         legend_elements=create_legend_colors(colors,l)
 
-    if topic == 'Integrity':
+    elif topic == 'Integrity':
         if 'attack' in checkbox_values:
             base_path = os.path.dirname(__file__)
             file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_integrity_attack.csv')
@@ -1891,10 +1928,67 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
 )
 def display_click_data(selection, af_content: str, af_filename: str, topic: str,checkbox_values: list):
     if selection:
+        print(selection)
         node_id = selection['nodes'][0] if selection['nodes'] else None
         edge_id_list = selection['edges']
         if node_id is not None:
-            if topic == 'Racism':
+            if af_filename!=None:
+                elements = []
+                if af_content.startswith("data:text/csv;base64,"):
+                    content_string = af_content[len("data:text/csv;base64,"):]
+                decoded = base64.b64decode(content_string)
+                decoded_str = decoded.decode('utf-8')
+                lines = decoded_str.splitlines()
+                data = [line.split('$,$') for line in lines]
+
+                df = pd.DataFrame(data[1:], columns=data[0]) if len(data) > 1 else pd.DataFrame(columns=data[0])
+
+                att_list=[]
+                att_by_list=[]
+                sup_list=[]
+                sup_by_list=[]
+                for index, row in df.iterrows():
+                    if row.iloc[2] == 'Attack':
+                        if row.iloc[4] == node_id:
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                att_list.append(row.iloc[3])
+                        if row.iloc[5] == node_id:
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                att_by_list.append(row.iloc[3])
+                    if att_list:
+                        elements.append(html.H3("Attack : "))
+                        for item in att_list:
+                            elements.append(html.P(item))
+                            elements.append(html.P("\n\n"))
+                    if att_by_list:
+                        elements.append(html.H3("Attacked by : "))
+                        for item in att_by_list:
+                            elements.append(html.P(item))
+                            elements.append(html.P("\n\n"))
+                    if row.iloc[2] == 'Support':
+                        if row.iloc[4] == node_id:
+                            nn= f'{node_id}-{row.iloc[5]}'
+                            if nn in edge_id_list:
+                                sup_list.append(row.iloc[3])
+                            if row.iloc[5] == node_id:
+                                nn= f'{row.iloc[4]}-{node_id}'
+                                if nn in edge_id_list:
+                                    sup_by_list.append(row.iloc[3])
+                    if sup_list:
+                        elements.append(html.H3("Support : "))
+                        for item in sup_list:
+                            elements.append(html.P(item))
+                            elements.append(html.P("\n\n"))
+                    if sup_by_list:
+                        elements.append(html.H3("Supported by : "))
+                        for item in sup_by_list:
+                            elements.append(html.P(item))
+                            elements.append(html.P("\n\n"))
+                    return dbc.Row(elements)
+
+            elif topic == 'Racism':
                 elements = []
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
@@ -1950,7 +2044,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Economy':
+            elif topic == 'Economy':
                 elements = []
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
@@ -2007,7 +2101,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
             
-            if topic == 'Climate Change':
+            elif topic == 'Climate Change':
                 elements = []
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
@@ -2064,7 +2158,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Supreme Court':
+            elif topic == 'Supreme Court':
                 elements = []
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
@@ -2121,7 +2215,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Minimum Wage':
+            elif topic == 'Minimum Wage':
                 elements = []
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
@@ -2178,7 +2272,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'COVID':
+            elif topic == 'COVID':
                 elements = []
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
@@ -2235,7 +2329,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
             
-            if topic == 'Healthcare':
+            elif topic == 'Healthcare':
                 elements = []
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
@@ -2292,7 +2386,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'National Security':
+            elif topic == 'National Security':
                 elements = []
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
@@ -2349,7 +2443,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Why They Should Be Elected':
+            elif topic == 'Why They Should Be Elected':
                 elements = []
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
@@ -2406,7 +2500,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Democracy':
+            elif topic == 'Democracy':
                 elements = []
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
@@ -2463,7 +2557,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Integrity':
+            elif topic == 'Integrity':
                 elements = []
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
@@ -2526,7 +2620,24 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
         if edge_id is not None:
             elements = []
             elements.append(html.H3("Relationship : "))
-            if topic == 'Racism': 
+            if af_filename!=None:
+                if af_content.startswith("data:text/csv;base64,"):
+                    content_string = af_content[len("data:text/csv;base64,"):]
+                decoded = base64.b64decode(content_string)
+                decoded_str = decoded.decode('utf-8')
+                lines = decoded_str.splitlines()
+                data = [line.split('$,$') for line in lines]
+
+                df = pd.DataFrame(data[1:], columns=data[0]) if len(data) > 1 else pd.DataFrame(columns=data[0])
+                
+                for index, row in df.iterrows():
+                        rela=row.iloc[4]+"-"+row.iloc[5]
+                        if rela == edge_id :
+                            elements.append(html.P(row.iloc[3]))
+                            elements.append(html.P("\n\n"))
+                return dbc.Row(elements)
+
+            elif topic == 'Racism': 
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
                     file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_racism_attack.csv')
@@ -2549,7 +2660,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Economy': 
+            elif topic == 'Economy': 
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
                     file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_economy_attack.csv')
@@ -2572,7 +2683,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
             
-            if topic == 'Climate Change': 
+            elif topic == 'Climate Change': 
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
                     file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_climate_attack.csv')
@@ -2595,7 +2706,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
             
-            if topic == 'Supreme Court': 
+            elif topic == 'Supreme Court': 
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
                     file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_court_attack.csv')
@@ -2618,7 +2729,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Minimum Wage': 
+            elif topic == 'Minimum Wage': 
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
                     file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_wage_attack.csv')
@@ -2641,7 +2752,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'COVID': 
+            elif topic == 'COVID': 
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
                     file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_covid_attack.csv')
@@ -2664,7 +2775,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Healthcare': 
+            elif topic == 'Healthcare': 
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
                     file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_healthcare_attack.csv')
@@ -2687,7 +2798,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'National Security': 
+            elif topic == 'National Security': 
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
                     file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_security_attack.csv')
@@ -2710,7 +2821,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Why They Should Be Elected': 
+            elif topic == 'Why They Should Be Elected': 
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
                     file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_elected_attack.csv')
@@ -2733,7 +2844,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Democracy': 
+            elif topic == 'Democracy': 
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
                     file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_democracy_attack.csv')
@@ -2756,7 +2867,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             elements.append(html.P("\n\n"))
                 return dbc.Row(elements)
 
-            if topic == 'Integrity': 
+            elif topic == 'Integrity': 
                 if 'attack' in checkbox_values:
                     base_path = os.path.dirname(__file__)
                     file_path = os.path.join(base_path, '..', 'data', 'full_dataset_processing_integrity_attack.csv')
@@ -2904,7 +3015,6 @@ def evaluate_abstract_argumentation_framework(_nr_of_clicks_accept: int, argumen
         'arguments': abstract_arguments_value,
         'attacks': abstract_attacks_value,
         }
-
         return results, html.Div([html.P('Click on the extension/argument buttons to display the corresponding argument(s) in the graph.')])
 
     return {}, html.Div([html.P('Click on the extension/argument buttons to display the corresponding argument(s) in the graph.')])
