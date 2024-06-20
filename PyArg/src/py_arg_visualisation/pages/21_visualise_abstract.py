@@ -39,6 +39,10 @@ from py_arg_visualisation.functions.extensions_functions.get_af_extensions impor
 from py_arg_visualisation.functions.graph_data_functions.get_af_graph_data import get_argumentation_framework_graph_data
 from py_arg_visualisation.functions.import_functions.read_argumentation_framework_functions import \
     read_argumentation_framework
+import chardet
+import random
+
+random.seed(42)
 
 dash.register_page(__name__, name='Visualise', title='Visualise')
 
@@ -269,11 +273,21 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
         af_filename=None
     if af_filename != None:
         if af_filename[-4:] == '.csv':
-
             if af_content.startswith("data:text/csv;base64,"):
                 content_string = af_content[len("data:text/csv;base64,"):]
             decoded = base64.b64decode(content_string)
-            decoded_str = decoded.decode('utf-8')
+            encodings_to_try = ['utf-8', 'latin-1', 'utf-16']  # Add more encodings as necessary
+            for encoding in encodings_to_try:
+                try:
+                    decoded_str = decoded.decode(encoding)
+                    break  # Stop trying encodings once decoding succeeds
+                except UnicodeDecodeError:
+                    continue  # Try the next encoding if decoding fails
+
+            # Handle if none of the encodings worked
+            if 'decoded_str' not in locals():
+                print("Unable to decode the data using any of the specified encodings.")
+                decoded_str = None  # or handle the error appropriately
             lines = decoded_str.splitlines()
             data = [line.split('$,$') for line in lines]
 
@@ -292,6 +306,8 @@ def generate_abstract_argumentation_framework(_nr_of_clicks_random: int, af_cont
                 
                 if row.iloc[2] == 'Attack':
                     h.append(f'$A$({sentence1},{sentence2})')
+                if row.iloc[2] == 'Support':
+                    h.append(f'$S$({sentence1},{sentence2})')
             abstract_arguments_value = '$end$'.join((str(arg) for arg in l))
             abstract_attacks_value = '$end$'.join((str(defeat)for defeat in h) )
 
@@ -1032,7 +1048,23 @@ def replace_mid(argument):
 from py_arg.abstract_argumentation_classes.argument import Argument
 from py_arg.abstract_argumentation_classes.defeat import Defeat
 
+def generate_random_color(min_brightness=100):
+    def is_bright(color):
+        r, g, b = color
+        # Calculer la luminosité
+        brightness = (0.299 * r + 0.587 * g + 0.114 * b)
+        return brightness >= min_brightness
 
+    while True:
+        color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        if is_bright(color):
+            return "#{:02x}{:02x}{:02x}".format(color[0], color[1], color[2])
+def add_different_color(colors):
+    new_color = generate_random_color()
+    while new_color in colors:
+        new_color = generate_random_color()
+    colors.append(new_color)
+    return colors
 def create_legend_colors(colors: list, speakers: list):
     elements = []
     for i in range(len(speakers)):
@@ -1116,7 +1148,7 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
     
     data = get_argumentation_framework_graph_data(arg_framework, selected_arguments, color_blind_mode)
 
-    colors=['blue','red','green','yellow']
+    colors=[]
     legend_elements=[]
 
     if af_filename!=None:
@@ -1133,12 +1165,14 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                 couleur1 = 'gray'  # default color if no match
                 couleur2 = 'gray'  # default color if no match
                 if argument_7 not in l:
+                    colors = add_different_color(colors)
                     couleur1=colors[len(l)]
                     l.append(argument_7)
                 else:
                     couleur1 = colors[l.index(argument_7)]
 
                 if argument_8 not in l:
+                    colors = add_different_color(colors)
                     couleur2=colors[len(l)]
                     l.append(argument_8)
                 else:
@@ -1168,12 +1202,14 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur1 = 'gray'  # default color if no match
                     couleur2 = 'gray'  # default color if no match
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
 
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1201,12 +1237,14 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur1 = 'gray'  # default color if no match
                     couleur2 = 'gray'  # default color if no match
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
 
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1236,12 +1274,14 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur1 = 'gray'  # default color if no match
                     couleur2 = 'gray'  # default color if no match
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
 
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1268,12 +1308,14 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur1 = 'gray'  # default color if no match
                     couleur2 = 'gray'  # default color if no match
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
 
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1304,11 +1346,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1337,11 +1381,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1373,11 +1419,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1406,11 +1454,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1442,11 +1492,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1475,11 +1527,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1511,11 +1565,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1544,11 +1600,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1580,11 +1638,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1613,11 +1673,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1649,11 +1711,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1682,11 +1746,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1718,11 +1784,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1751,11 +1819,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1787,11 +1857,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1820,11 +1892,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1856,11 +1930,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1889,11 +1965,13 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
                     couleur2 = 'gray'  # default color if no match
 
                     if argument_7 not in l:
+                        colors = add_different_color(colors)
                         couleur1=colors[len(l)]
                         l.append(argument_7)
                     else:
                         couleur1 = colors[l.index(argument_7)]
                     if argument_8 not in l:
+                        colors = add_different_color(colors)
                         couleur2=colors[len(l)]
                         l.append(argument_8)
                     else:
@@ -1928,12 +2006,10 @@ def create_abstract_argumentation_framework(evaluation_results, generation_resul
 )
 def display_click_data(selection, af_content: str, af_filename: str, topic: str,checkbox_values: list):
     if selection:
-        print(selection)
         node_id = selection['nodes'][0] if selection['nodes'] else None
         edge_id_list = selection['edges']
         if node_id is not None:
             if af_filename!=None:
-                elements = []
                 if af_content.startswith("data:text/csv;base64,"):
                     content_string = af_content[len("data:text/csv;base64,"):]
                 decoded = base64.b64decode(content_string)
@@ -1942,7 +2018,7 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                 data = [line.split('$,$') for line in lines]
 
                 df = pd.DataFrame(data[1:], columns=data[0]) if len(data) > 1 else pd.DataFrame(columns=data[0])
-
+                elements = []
                 att_list=[]
                 att_by_list=[]
                 sup_list=[]
@@ -1957,36 +2033,36 @@ def display_click_data(selection, af_content: str, af_filename: str, topic: str,
                             nn= f'{row.iloc[4]}-{node_id}'
                             if nn in edge_id_list:
                                 att_by_list.append(row.iloc[3])
-                    if att_list:
-                        elements.append(html.H3("Attack : "))
-                        for item in att_list:
-                            elements.append(html.P(item))
-                            elements.append(html.P("\n\n"))
-                    if att_by_list:
-                        elements.append(html.H3("Attacked by : "))
-                        for item in att_by_list:
-                            elements.append(html.P(item))
-                            elements.append(html.P("\n\n"))
                     if row.iloc[2] == 'Support':
                         if row.iloc[4] == node_id:
                             nn= f'{node_id}-{row.iloc[5]}'
                             if nn in edge_id_list:
                                 sup_list.append(row.iloc[3])
-                            if row.iloc[5] == node_id:
-                                nn= f'{row.iloc[4]}-{node_id}'
-                                if nn in edge_id_list:
-                                    sup_by_list.append(row.iloc[3])
-                    if sup_list:
-                        elements.append(html.H3("Support : "))
-                        for item in sup_list:
-                            elements.append(html.P(item))
-                            elements.append(html.P("\n\n"))
-                    if sup_by_list:
-                        elements.append(html.H3("Supported by : "))
-                        for item in sup_by_list:
-                            elements.append(html.P(item))
-                            elements.append(html.P("\n\n"))
-                    return dbc.Row(elements)
+                        if row.iloc[5] == node_id:
+                            nn= f'{row.iloc[4]}-{node_id}'
+                            if nn in edge_id_list:
+                                sup_by_list.append(row.iloc[3])
+                if att_list:
+                    elements.append(html.H3("Attack : "))
+                    for item in att_list:
+                        elements.append(html.P(item))
+                        elements.append(html.P("\n\n"))
+                if att_by_list:
+                    elements.append(html.H3("Attacked by : "))
+                    for item in att_by_list:
+                        elements.append(html.P(item))
+                        elements.append(html.P("\n\n"))
+                if sup_list:
+                    elements.append(html.H3("Support : "))
+                    for item in sup_list:
+                        elements.append(html.P(item))
+                        elements.append(html.P("\n\n"))
+                if sup_by_list:
+                    elements.append(html.H3("Supported by : "))
+                    for item in sup_by_list:
+                        elements.append(html.P(item))
+                        elements.append(html.P("\n\n"))
+                return dbc.Row(elements)
 
             elif topic == 'Racism':
                 elements = []

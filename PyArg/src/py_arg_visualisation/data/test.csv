@@ -1,2 +1,3 @@
 _unit_id$,$pair_id$,$relation_gold$,$relation_gold_reason$,$sentence_1$,$sentence_2$,$speaker_1$,$speaker_2$,$topic
-0$,$0$,$Attack$,$This is an attaque$,$The politic, as we know, is not enough$,$I disagree$,$Me$,$You$,$Europen Election
+0$,$0$,$Attack$,$This is an attack$,$The politic, as we know, is not enough$,$I disagree$,$Me$,$You$,$Europen Election
+0$,$0$,$Support$,$This is a support$,$The politic, as we know, is not enough$,$I agree$,$Me$,$Him$,$Europen Election
